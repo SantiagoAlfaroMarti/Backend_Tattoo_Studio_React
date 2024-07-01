@@ -3,6 +3,7 @@ import express from 'express';
 
 
 
+
 const app = express();
 
 //Middleware
@@ -22,9 +23,9 @@ app.get('/healthy', (req, res) => {
 })
 
 //Services
-app.post('/authors', createService)
-app.put('/authors/:id', updateServiceById);
-app.delete('/authors/:id', deleteServiceById);
+app.post('/services', createService)
+app.put('/services/:id', updateServiceById);
+app.delete('/services/:id', deleteServiceById);
 
 //Appointments
 app.get('/appointments', (req, res) => {
@@ -44,7 +45,7 @@ app.put('/users/:id', updateUserById);
 app.delete('/users/:id', deleteUserById);
 
 //Roles
-app.get('/roler', (req, res) => {
+app.get('/roles', (req, res) => {
     res.send('GET ALL USERS')
 })
 app.post('/roles', createRole);

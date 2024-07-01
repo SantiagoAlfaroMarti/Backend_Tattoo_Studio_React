@@ -21,6 +21,39 @@ app.get('/healthy', (req, res) => {
 )
 })
 
+//Services
+app.post('/authors', createService)
+app.put('/authors/:id', updateServiceById);
+app.delete('/authors/:id', deleteServiceById);
+
+//Appointments
+app.get('/appointments', (req, res) => {
+    res.send('GET ALL APPOINTMENTS')
+})
+
+app.post('/appointments', createApointment);
+app.put('/appointments/:id', updateAppointmentById);
+app.delete('/appointments/:id', deleteAppointmentById);
+
+//Users
+app.get('/users', (req, res) => {
+    res.send('GET ALL USERS')
+})
+app.post('/users', createUser);
+app.put('/users/:id', updateUserById);
+app.delete('/users/:id', deleteUserById);
+
+//Roles
+app.get('/roler', (req, res) => {
+    res.send('GET ALL USERS')
+})
+app.post('/roles', createRole);
+app.put('/roles/:id', updateRoleById);
+app.delete('/roles/:id', deleteRoleById);
+
+
+
+
 AppDataSource.initialize()
     .then(() => {
     console.log('Database connected');

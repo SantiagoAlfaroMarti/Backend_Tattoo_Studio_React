@@ -18,3 +18,12 @@ export const updateAppointmentById = (req: Request, res: Response) => {
         message: `APPOINTMENT UPDATED with id ${req.params.id}`
        })
 }
+
+export const deleteAppointmentById = (req: Request, res: Response) => {
+    console.log(req.params.id);
+
+    res.json({
+        success: true,
+        message: `APPOINTMENT DELETE with id ${req.params.id}`
+       })
+}

@@ -1,6 +1,11 @@
-import 'dotenv/config'
-import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
 
+import express from 'express';
+import { createService, deleteServiceById, updateServiceById } from './controllers/services.controller';
+import { createUser, deleteUserById, updateUserById } from './controllers/users.controller';
+import { createAppointment, deleteAppointmentById, updateAppointmentById } from './controllers/appointments.controller';
+import { AppDataSource } from './database/db';
 
 
 
@@ -9,7 +14,7 @@ const app = express();
 //Middleware
 app.use(express.json())
 
-const PORT = process.env.port || 4000;
+const PORT = process.env.PORT || 4000;
 
 app.get('/healthy', (req, res) => {
     //res.send('Server is healthy')
@@ -32,7 +37,7 @@ app.get('/appointments', (req, res) => {
     res.send('GET ALL APPOINTMENTS')
 })
 
-app.post('/appointments', createApointment);
+app.post('/appointments', createAppointment);
 app.put('/appointments/:id', updateAppointmentById);
 app.delete('/appointments/:id', deleteAppointmentById);
 
@@ -44,13 +49,6 @@ app.post('/users', createUser);
 app.put('/users/:id', updateUserById);
 app.delete('/users/:id', deleteUserById);
 
-//Roles
-app.get('/roles', (req, res) => {
-    res.send('GET ALL USERS')
-})
-app.post('/roles', createRole);
-app.put('/roles/:id', updateRoleById);
-app.delete('/roles/:id', deleteRoleById);
 
 
 

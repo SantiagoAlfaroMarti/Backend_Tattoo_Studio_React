@@ -6,6 +6,7 @@ import { createService, deleteServiceById, updateServiceById } from './controlle
 import { createUser, deleteUserById, updateUserById } from './controllers/users.controller';
 import { createAppointment, deleteAppointmentById, updateAppointmentById } from './controllers/appointments.controller';
 import { AppDataSource } from './database/db';
+import { createRole, deleteRoleById, updateRoleById } from './controllers/roles.controller';
 
 const app = express();
 

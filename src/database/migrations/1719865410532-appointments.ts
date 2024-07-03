@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableUnique } from "typeorm";
 
 export class Appointments1719865410532 implements MigrationInterface {
 
@@ -12,48 +12,54 @@ export class Appointments1719865410532 implements MigrationInterface {
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
-                        generationStrategy: "increment",
+                        generationStrategy: "increment"
                     },
                     {
-                        name: "name",
-                        type: "varchar",
-                        length: "255",
-                    },
-                    {
-                        name: "email",
-                        type: "varchar",
-                        length: "150",
-                        isNullable: false,
-                        isUnique: true
-                    },
-                    {
-                        name: "password",
-                        type: "varchar",
-                        length: "255",
+                        name: "user_id",
+                        type: "int",
                         isNullable: false
                     },
                     {
-                        name: "is_active",
-                        type: "boolean",
-                        default: true,
+                        name: "service_id",
+                        type: "int",
                         isNullable: false
                     },
                     {
-                        name: "role",
-                        type: "enum",
-                        enum: ['user','admin','super_admin'],
-                        default: "'user'"
+                        name: "date",
+                        type: "timestamp",
+                        isNullable: false
                     },
                     {
                         name: "created_at",
-                        type: "datetime",
+                        type: "timestamp",
                         default: "now()"
                     },
                     {
-                        name: "updted_at",
-                        type: "datetime",
-                        default: "now()"
+                        name: "updated_at",
+                        type: "timestamp",
+                        default: "now()",
+                        onUpdate: "now()"
                     },
+                ],
+                foreignKeys: [
+                    {
+                        columnNames: ["user_id"],
+                        referencedTableName: "users",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE"
+                    },
+                    {
+                        columnNames: ["service_id"],
+                        referencedTableName: "services",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE"
+                    },
+                ],
+                uniques: [
+                    new TableUnique({
+                        name: "user_service_date_unique",
+                        columnNames: ["user_id", "service_id", "date"]
+                    }),
                 ],
             }),
             true
@@ -61,7 +67,6 @@ export class Appointments1719865410532 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('appointments')
+        await queryRunner.dropTable("appointments")
     }
-
 }

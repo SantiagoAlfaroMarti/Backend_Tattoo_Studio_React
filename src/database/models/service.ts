@@ -1,6 +1,13 @@
-// import { Entity } from "typeorm"
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
-// @Entity()
-// export class service {
+@Entity("services")
+export class Service extends BaseEntity{
+    @PrimaryGeneratedColumn()
+    id!: Number
 
-// }
+    @Column({ name: 'service_name'})
+    service_name!: string
+
+    @Column({name: 'description'})
+    description!: string
+}

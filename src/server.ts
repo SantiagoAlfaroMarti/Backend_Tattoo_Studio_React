@@ -7,18 +7,14 @@ import { createUser, deleteUserById, updateUserById } from './controllers/users.
 import { createAppointment, deleteAppointmentById, updateAppointmentById } from './controllers/appointments.controller';
 import { AppDataSource } from './database/db';
 
-
-
 const app = express();
 
-//Middleware
+// MIDDLEWARE
 app.use(express.json())
 
 const PORT = process.env.PORT || 4000;
 
 app.get('/healthy', (req, res) => {
-    //res.send('Server is healthy')
-
     res.status(200).json(
         {
      success: true,
@@ -27,21 +23,24 @@ app.get('/healthy', (req, res) => {
 )
 })
 
-//Services
+
+// Services CRUD
+app.get('/services', (req, res) => {
+    res.send('GET ALL SERVICES')
+})
 app.post('/services', createService)
 app.put('/services/:id', updateServiceById);
 app.delete('/services/:id', deleteServiceById);
 
-//Appointments
+// Appointments CRUD
 app.get('/appointments', (req, res) => {
     res.send('GET ALL APPOINTMENTS')
 })
-
 app.post('/appointments', createAppointment);
 app.put('/appointments/:id', updateAppointmentById);
 app.delete('/appointments/:id', deleteAppointmentById);
 
-//Users
+// Users CRUD
 app.get('/users', (req, res) => {
     res.send('GET ALL USERS')
 })
@@ -49,8 +48,13 @@ app.post('/users', createUser);
 app.put('/users/:id', updateUserById);
 app.delete('/users/:id', deleteUserById);
 
-
-
+// Roles CRUD
+app.get('/roles', (req, res) => {
+    res.send('GET ALL USERS')
+})
+app.post('/roles', createRole);
+app.put('/roles/:id', updateRoleById);
+app.delete('/roles/:id', deleteRoleById);
 
 
 AppDataSource.initialize()

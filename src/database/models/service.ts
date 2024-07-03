@@ -1,6 +1,6 @@
-import { Entity } from "typeorm"
+// import { Entity } from "typeorm"
 
-@Entity()
-export class service {
+// @Entity()
+// export class service {
 
-}
+// }

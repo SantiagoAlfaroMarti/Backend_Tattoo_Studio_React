@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { User } from "../database/models/User";
+import { User } from "../database/models/user";
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {

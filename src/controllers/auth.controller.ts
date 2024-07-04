@@ -1,18 +1,18 @@
 import { Request, Response, request } from "express";
-import { User } from "../database/models/User";
+import { User } from "../database/models/user";
 import bcrypt from 'bcrypt';
 
 export const register = async (req: Request, res: Response) => {
     try {
-        //1. Retrive all the information of the request
+
+        // 1. Recuperar la información
+
         const email = req.body.email;
         const password_hash = req.body.password_hash;
         const role = req.body.role_id
 
 
-        // const body = { email, password_hash }
-
-        //2. Validate the obtained information
+        // 2. Validar la información
 
         if (!email || !password_hash) {
             return res.status(400).json(
@@ -33,14 +33,23 @@ export const register = async (req: Request, res: Response) => {
         }
         
 
-        // TODO email comprobation must be inserted 
+        // TODO validar formato email 
+
+        if(password.length < 8  || password.length > 12) {
+            return res.status(400).json(
+              {
+                success: false,
+                message: "Password is not valid, 8 to 12 charachters must be needed"
+              }
+            )
+          }
 
 
-        //3. Work with the obtained user information - in our case encrypt the password
+        // 3. Tratar la info si hace falta
         const passwordCrypted = bcrypt.hashSync(password_hash, 10)
 
 
-        //4. Save the info in out DataBase
+        // 4. Guardar en la base de datos
 
         const newUser = await User.create(
             {
@@ -49,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
             }
         ).save();
 
-        //5. Respond to the page
+        //5. Responder
 
         res.status(201).json(
             {

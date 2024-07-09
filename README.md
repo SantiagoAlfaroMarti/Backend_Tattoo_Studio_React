@@ -18,7 +18,6 @@ Welcome to my first backend project!
     <li><a href="#contributions">Contributions</a></li>
     <li><a href="#web-refferances">Web refferance</a></li>
     <li><a href="#development">Development</a></li>
-    <li><a href="#appreciations">Appreciations</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -33,19 +32,21 @@ This project is about learning to use Express JS together with some other framew
 </div>
 
 ## Stack
-Used technologies for the project:
 <div align="center">
+<a href="">
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+</a>
 <a href="https://www.expressjs.com/">
-    <img src= "https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/>
-</a>
-<a href="https://nodejs.org/es/">
-    <img src= "https://img.shields.io/badge/node.js-026E00?style=for-the-badge&logo=node.js&logoColor=white"/>
-</a>
-<a href="https://developer.mozilla.org/es/docs/Web/JavaScript">
-    <img src= "https://img.shields.io/badge/javascipt-EFD81D?style=for-the-badge&logo=javascript&logoColor=black"/>
+    <img src= "https://img.shields.io/badge/express.js-%23c04d59.svg?style=for-the-badge&logo=express&logoColor=white" alt="Express JS"/>
 </a>
 <a href="">
     <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+</a>
+<a href="https://nodejs.org/es/">
+    <img src= "https://img.shields.io/badge/node.js-026E00?style=for-the-badge&logo=node.js&logoColor=white" alt="Node JS"/>
+</a>
+<a href="https://developer.mozilla.org/es/docs/Web/JavaScript">
+    <img src= "https://img.shields.io/badge/javascipt-EFD81D?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/>
 </a>
 <a href="">
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
@@ -55,6 +56,9 @@ Used technologies for the project:
 </a>
 <a href="">
     <img src="https://img.shields.io/badge/bcrypt-3178C6?style=for-the-badge&" alt="TypeScript" />
+</a>
+<a href="">
+    <img src="https://img.shields.io/badge/thunder-cc6636?style=for-the-badge" alt="TypeScript" />
 </a>
  </div>
 
@@ -347,11 +351,8 @@ To achieve my project I used data from the following sites:
  console.log("Developed by: " + developer);
 ```  
 
-## Appreciations:
-
-Forever gratefull to GeeksHubs Academy for the oportunety to learn and grow on my career path.
-
 ## Contact
-<a href = "mailto:micorreoelectronico@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
-<a href="https://www.linkedin.com/in/linkedinUser/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
-</p>
+<div align="center">
+<a href = "mailto:santiagoalfamar@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://https://github.com/SantiagoAlfaroMarti"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
+</div>

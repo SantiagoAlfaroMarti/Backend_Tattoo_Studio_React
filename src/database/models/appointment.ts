@@ -1,22 +1,27 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { User } from "./User"
+import { Service } from "./Service"
 
 @Entity("appointments")
 export class Appointment extends BaseEntity{
+    
     @PrimaryGeneratedColumn()
-    id!: Number
+    id!: number
 
+    @Column({ name: "appointment_date"})
+    appointment_date!: Date
+    
     @Column({ name: 'user_id'})
-    user_id!: Number
+    user_id!: number
 
     @Column({name: 'service_id'})
-    service_id!: Number
+    service_id!: number
+    
+    @ManyToOne(() => User,(user) => user.appointments)
+    @JoinColumn ({ name: "user_id"})
+    user!: User;
 
-    @Column({name: 'date'})
-    date!: Date
-
-    @Column({name: 'created_at'})
-    created_at!: Date
-
-    @Column({name: 'updated_at'})
-    updated_at!: Date
+    @ManyToOne(() => Service, (service) => service.appointments)
+    @JoinColumn({name: "service_id"})
+    service!: Service
 }

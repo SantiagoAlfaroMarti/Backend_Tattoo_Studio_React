@@ -1,13 +1,19 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Appointment } from "./Appointment"
 
 @Entity("services")
+
 export class Service extends BaseEntity{
+    
     @PrimaryGeneratedColumn()
-    id!: Number
+    id!: number
 
     @Column({ name: 'service_name'})
     service_name!: string
 
     @Column({name: 'description'})
     description!: string
+
+    @OneToMany(() => Appointment, (appointment) => appointment.service)
+    appointments!: Service[]
 }

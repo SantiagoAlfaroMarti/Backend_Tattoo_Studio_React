@@ -1,153 +1,138 @@
 import { Request, Response } from "express";
-import { Service } from "../database/models/service";
+import { Service } from "../database/models/Service";
 
 export const createService = async (req: Request, res: Response) => {
-  try {
-    // 1. recuperar la informacion de la req
-    const name = req.body.name;
-    const nationality = req.body.nationality;
+    try {
+        //1. Retrive info from the user
+        const service_name = req.body.service_name;
+        const description = req.body.description;
 
-    // 2. Validar informacion
-    if (!name) {
-      return res.status(400).json(
-        {
-          success: false,
-          message: "name is required"
+        //2. Check the obtained information
+        if(!service_name || !description){
+            return res.status(400).json(
+                {
+                    success: false,
+                    message: "Name and description cannot be empty!"
+                }
+            )
         }
-      )
+
+        //3. Save info in our DataBase
+        const newService = await Service.create(
+            {   
+                service_name: service_name,
+                description: description
+            }
+        ).save();
+
+        //4. Give a response to the page
+        res.status(201).json(
+            {
+                success: true,
+                message: "Service created successfully!",
+                data: newService
+            }
+        )
+
+    } catch (error) {
+        res.status(500).json(
+            {
+                success: false,
+                message: "Service cannot be created",
+                error: error
+            }
+        )
+    }
+} 
+
+export const getAllServices = async (req: Request, res: Response) => {
+    try {
+        //1. Get information needed
+        const services = await Service.find()
+
+        //2. Respond to user
+        res.status(200).json(
+            {
+                success: true,
+                message: "Services retrived successfully!",
+                data: services
+            }
+        )
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Services can't be retrieved",
+            error: error
+        })
+    }
+}
+
+export const updateSerivce = async (req: Request, res: Response) => {
+        try {
+            const serviceId = req.body.id
+    
+            const service = await Service.findOneBy({
+                id: parseInt(serviceId)
+            })
+    
+            if (!service) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Service not found"
+                })
+            }
+    
+            const updatedservice = await Service.update({
+                id: parseInt(serviceId)
+                },
+                req.body
+            )
+    
+            return res.status(200).json({
+                success: true,
+                message: "Service updated successfully",
+                data: updatedservice
+            })
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Service can't be updated",
+                error: error
+            })
+        }
     }
 
-    if (!nationality) {
-      return res.status(400).json(
-        {
-          success: false,
-          message: "nationality is required"
+export const deleteService = async (req: Request, res: Response) => {
+    try {
+        const serviceId = req.body.id
+
+        const service = await Service.findOneBy({
+            id: parseInt(serviceId)
+        })
+
+        if (!service) {
+            return res.status(404).json({
+                success: false,
+                message: "Service not found"
+            })
         }
-      )
+
+        const updatedservice = await Service.delete({
+            id: parseInt(serviceId)
+            }
+        )
+
+        return res.status(200).json({
+            success: true,
+            message: "Service deleted successfully",
+            data: updatedservice
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Service can't be deleted",
+            error: error
+        })
     }
-
-    // 3. Tratar informacion
-
-    // 4. Atacar a la bd
-    const newService = await Service.create(
-      {
-        name: name,
-        nationality: nationality
-      }
-    ).save();
-
-    // 5. Responder
-    res.json(
-      {
-        success: true,
-        message: 'Service created successfully',
-        data: newService
-      }
-    )
-  } catch (error) {
-    res.status(500).json(
-      {
-        success: false,
-        message: "Error creating service"
-      }
-    )
-  }
-}
-
-export const getAllServices = async(req: Request, res: Response) => {
-  try {
-    // 1. Recuperar la info de la BD
-    const service = await Service.find()
-
-    // 2. Responder la info de la bd
-    res.json(
-      {
-        success: true,
-        message: "All service retrieved successfully",
-        data: authors
-      }
-    )
-
-  } catch (error) {
-    res.status(500).json(
-      {
-        success: false, 
-        message: "Cant retrieve service",
-        error: error
-      }
-    )
-  }
-}
-
-export const updateServiceById = async (req: Request, res: Response) => {
-  try {
-      // 1. Recupera la info
-      const serviceIdToUpdate = req.params.id
-      const body = req.body
-
-      // 2. validar la info
-
-      // 3. trata la info
-
-      // 4. Actualizar en bd
-      const serviceUpdated = await Service.update(
-        {
-          id: parseInt(serviceIdToUpdate)
-        },
-        body
-      )
-
-      // 5. Responder
-      res.status(200).json(
-        {
-          success: true,
-          message: "Service updated",
-          data: serviceUpdated
-        }
-      )      
-  } catch (error) {
-    res.status(500).json(
-      {
-        success: false,
-        message: "service cant be updated",
-        error: error
-      }
-    )
-  }
-}
-
-export const deleteServiceById = async (req: Request, res: Response) => {
-  try {
-    // 1. recupera id
-    const serviceIdToDelete = Number(req.params.id)
-  
-    // 2. Eliminar registro de la bd
-    const serviceDeleted = await Service.delete(serviceIdToDelete)
-
-    if(!authorDeleted.affected) {
-      return res.status(404).json(
-        {
-          success: false,
-          message: "Service doesnt exist"
-        }
-      )
-    } 
-
-    // 3. Responder
-    res.status(200).json(
-      {
-        success: true,
-        message: "service deleted successfully",
-        data: serviceDeleted
-      }
-    )
-  } catch (error) {
-    res.status(500).json(
-      {
-        success: false,
-        message: "Error deleting service",
-        error: error
-      }
-    )
-  }
 }

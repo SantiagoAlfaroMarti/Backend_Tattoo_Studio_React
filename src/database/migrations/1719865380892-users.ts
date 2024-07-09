@@ -12,7 +12,7 @@ export class User1719865380892 implements MigrationInterface {
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
-                        generationStrategy: "increment",
+                        generationStrategy: "increment"
                     },
                     {
                         name: "first_name",
@@ -30,8 +30,8 @@ export class User1719865380892 implements MigrationInterface {
                         name: "email",
                         type: "varchar",
                         length: "255",
-                        isNullable: false,
-                        isUnique: true
+                        isUnique: true,
+                        isNullable: false
                     },
                     {
                         name: "password_hash",
@@ -42,15 +42,28 @@ export class User1719865380892 implements MigrationInterface {
                     {
                         name: "role_id",
                         type: "int",
-                        default: "user"
+                        default: 1
                     },
-                ], foreignKeys: [
                     {
-                        columnNames: ['role_id'],
-                        referencedColumnNames: ['id'],
-                        referencedTableName: 'roles'
-                    }
-                ]
+                        name: "created_at",
+                        type: "datetime",
+                        default: "now()"
+                    },
+                    {
+                        name: "updated_at",
+                        type: "datetime",
+                        default: "now()",
+                        onUpdate: "now()"
+                    },
+                ],
+                foreignKeys: [
+                    {
+                        columnNames: ["role_id"],
+                        referencedTableName: "roles",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE"
+                    }, 
+                ],
             }),
             true
         );
@@ -59,5 +72,4 @@ export class User1719865380892 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('users')
     }
-
 }

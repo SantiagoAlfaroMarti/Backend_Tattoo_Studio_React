@@ -1,6 +1,6 @@
-import { MigrationInterface, QueryRunner, Table, TableUnique } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class Appointments1719865410532 implements MigrationInterface {
+export class Appointment1719865410532 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -15,6 +15,11 @@ export class Appointments1719865410532 implements MigrationInterface {
                         generationStrategy: "increment"
                     },
                     {
+                        name: "appointment_date",
+                        type: "date",
+                        isNullable: false
+                    },
+                    {
                         name: "user_id",
                         type: "int",
                         isNullable: false
@@ -23,50 +28,29 @@ export class Appointments1719865410532 implements MigrationInterface {
                         name: "service_id",
                         type: "int",
                         isNullable: false
-                    },
-                    {
-                        name: "date",
-                        type: "timestamp",
-                        isNullable: false
-                    },
-                    {
-                        name: "created_at",
-                        type: "timestamp",
-                        default: "now()"
-                    },
-                    {
-                        name: "updated_at",
-                        type: "timestamp",
-                        default: "now()",
-                        onUpdate: "now()"
-                    },
+                    }
                 ],
                 foreignKeys: [
                     {
-                        columnNames: ["user_id"],
-                        referencedTableName: "users",
-                        referencedColumnNames: ["id"],
+                        columnNames: ['user_id'],
+                        referencedColumnNames: ['id'],
+                        referencedTableName: 'users',
                         onDelete: "CASCADE"
                     },
                     {
-                        columnNames: ["service_id"],
-                        referencedTableName: "services",
-                        referencedColumnNames: ["id"],
+                        columnNames: ['service_id'],
+                        referencedColumnNames: ['id'],
+                        referencedTableName: 'services',
                         onDelete: "CASCADE"
-                    },
-                ],
-                uniques: [
-                    new TableUnique({
-                        name: "user_service_date_unique",
-                        columnNames: ["user_id", "service_id", "date"]
-                    }),
-                ],
+                    }
+                ]
             }),
             true
-        );
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("appointments")
+        await queryRunner.dropTable('appointments')
     }
+
 }

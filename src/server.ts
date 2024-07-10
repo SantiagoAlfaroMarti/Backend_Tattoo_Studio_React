@@ -4,10 +4,10 @@ import { AppDataSource } from './database/db';
 import { changeUserRole, deleteUserById, getAllUsers, getUserByEmail, getUserProfile, modifyUserProfile } from './controllers/users.controller';
 import { register, userLogIn } from './controllers/auth.controller';
 import { createService, deleteService, getAllServices, updateSerivce } from './controllers/services.controller';
-import { auth } from './middlewares/auth';
+import { auth } from './middlewares/auths';
 import { isAdmin } from './middlewares/isAdmin';
-import { createAppointment, deleteAppointment, findAppointmendById, showMyAppointments, updateAppointment } from './controllers/appointments.controller';
-import { createRole, getRoles, updateRole } from './controllers/roles.controller';
+import { createAppointment, deleteAppointment, findAppointmendById, showMyAppointments, updateAppointment } from './controllers/appointments.controllers';
+import { createRole, getRoles, updateRole } from './controllers/roles.controllers';
 
 const app = express();
 app.use(express.json())

@@ -115,7 +115,7 @@ export const findAppointmendById = async (req: Request, res: Response) => {
                     user: { id: userID },
                     id: parseInt(appId)
                 },
-                relations: {service: {}}
+                relations: { service: {} }
             }
         )
 
@@ -198,47 +198,34 @@ export const showMyAppointments = async (req: Request, res: Response) => {
 
 export const deleteAppointment = async (req: Request, res: Response) => {
     try {
-        //1. Get ID of the aPp we will delete
-        const appID = req.params.id;
+        const appID = req.body.id
 
-        //.2 Verify if the ID exists
-        const appointmentIs = await Appointment.findOneBy({
+        const appointment = await Appointment.findOneBy({
             id: parseInt(appID)
         })
 
-        if (!appointmentIs) {
-            return res.status(400).json(
-                {
-                    success: false,
-                    message: "Appointment not found!"
-                }
-            )
+        if (!appointment) {
+            return res.status(404).json({
+                success: false,
+                message: "Appointment not found"
+            })
         }
 
-        //3. IF found > delete it
-        const deletedApp = await Appointment.delete(
-            {
-                id: parseInt(appID)
-            }
+        const deletedApp = await Appointment.delete({
+            id: parseInt(appID)
+        }
         )
 
-        //4. Confirmation
-        res.status(200).json(
-            {
-                success: true,
-                message: "Appointment deleted successfully!",
-                data: deletedApp
-            }
-        )
-
+        return res.status(200).json({
+            success: true,
+            message: "Appointment deleted successfully",
+            data: deletedApp
+        })
     } catch (error) {
-        res.status(500).json(
-            {
-                success: false,
-                message: "Error deleting appointment!",
-                error: error
-            }
-        )
-
+        return res.status(500).json({
+            success: false,
+            message: "Appointment can't be deleted",
+            error: error
+        })
     }
 }

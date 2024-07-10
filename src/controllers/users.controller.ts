@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../database/models/user";
+import { User } from "../database/models/User";
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
@@ -174,25 +174,44 @@ export const getUserByEmail = async (req: Request, res: Response) => {
 export const changeUserRole = async (req: Request, res: Response) => {
     try {
         //1. Retrive the id for the user which we want to update
-        const userIdToUpdate = req.params.userIdToUpdate
-        const body = req.body
+        const { userId, newRoleId } = req.body;
 
-        //2. If needed we can - validate the info or amend it
+        //2. Validate this info (see if our user exxists)
 
-        //4. Update the info in our DataBase
-        const userUpdated = await User.update(
-            {
-                id: parseInt(userIdToUpdate)
-            },
-            body
-        )
+        const user = await User.findOne({
+            where: {
+                id: userId
+            }
+    })
 
-        //5. Provide a response to the web page
+        if(!user){
+            return res.status(404).json(
+                {
+                    success: false,
+                    message: "User not found!"
+                }
+            )
+        }
+
+        //3. Update the info in our DataBase
+
+        user.role_id = newRoleId;
+
+        const userUpdated = await user.save()
+
+        const response = {
+            userId: userUpdated.id,
+            email: userUpdated.email,
+            updatedAt: userUpdated.updated_at,
+            role: newRoleId
+        }
+        
+        //4. Provide a response to the web page
         res.status(200).json(
             {
                 success: true,
-                message: "User updated successfully!",
-                data: userUpdated
+                message: "User role updated successfully!",
+                data: response
             }
         )
     } catch (error) {

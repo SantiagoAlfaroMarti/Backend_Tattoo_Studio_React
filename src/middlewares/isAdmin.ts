@@ -7,7 +7,7 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
          return res.status(400).json(
             {
             success: false,
-            message: "Access denied!"
+            message: "Access not allowed"
             }
          )
         }
@@ -18,9 +18,8 @@ export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Error in checking admin role!"
+                message: "Error in the role administrator"
             }
-        )
-        
+        ) 
     }
 } 

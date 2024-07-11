@@ -3,7 +3,7 @@ import { User } from "../database/models/user";
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
-        //1. Retrive all of the users
+        // 1. Obtener información //
         const users = await User.find(
             {
                 select: {
@@ -13,11 +13,11 @@ export const getAllUsers = async (req: Request, res: Response) => {
             }
         )
 
-        //2. Provide a response
+        // 2. Respuesta //
         res.json(
             {
                 success: true,
-                message: "All users retrived successfully!",
+                message: "All users retrived",
                 data: users
             }
         )
@@ -26,7 +26,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Error showing all users",
+                message: "Error to see users",
                 error: error
             }
         )
@@ -35,10 +35,10 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getUserProfile = async (req: Request, res: Response) => {
     try {
-        //1. get the needed user ID
+        // 1. Obtener información //
         const userId = req.tokenData.id;
 
-        //2. Look for this ID in our DB
+        // 2. Buscar Id en la DB //
 
         const user = await User.findOne(
             {
@@ -52,11 +52,11 @@ export const getUserProfile = async (req: Request, res: Response) => {
             }
         )
 
-        //3. Provide a response
+        // 3. Respuesta //
         res.json(
             {
                 success: true,
-                message: "Welcome to your profile!",
+                message: "Welcome",
                 data: user
             }
         )
@@ -65,7 +65,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Error opening user profile!"
+                message: "Error"
             }
         )
     }
@@ -73,12 +73,11 @@ export const getUserProfile = async (req: Request, res: Response) => {
 
 export const modifyUserProfile = async (req: Request, res: Response) => {
     try {
-        //1. Get the needed user ID
+        // 1. Obtener información //
         const userId = req.tokenData.id;
         const body = req.body;
 
-        //2. Validate if this user exists
-
+        // 2. Validar información //
         const user = User.findOne(
             {
                 where: {
@@ -94,7 +93,7 @@ export const modifyUserProfile = async (req: Request, res: Response) => {
             })
         }
 
-        // 3. Insert new data that will be changed and saved into BD
+        // 3. Nueva información guardada en la DB //
         const updateBody = await User.update(
             {
                 id: userId
@@ -102,18 +101,18 @@ export const modifyUserProfile = async (req: Request, res: Response) => {
             body
         )
 
-        // 4. Confirmation to web page 
+        // 4. Confirmación //
 
         return res.status(200).json({
             success: true,
-            message: "User updated successfully",
+            message: "User updated",
             data: updateBody
         })
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "User can't be updated",
+            message: "User not be updated",
             error: error
         })
     }

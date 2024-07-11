@@ -4,7 +4,8 @@ import { TokenDecoded } from "../types";
 
 export const auth = (req: Request, res: Response, next: NextFunction) => {
     try {
-        if(!req.headers.authorization) {                   //check if token is passed 
+        // Ver si token es correcto //
+        if(!req.headers.authorization) {
             return res.status(400).json(
                 {
                     success: false,
@@ -13,22 +14,21 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
             )
         }
 
-        const token = req.headers.authorization.split(' ')[1];         //split token to read it
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as TokenDecoded;          //check if token is with the correct secret word
-
-        req.tokenData = {                          //save the data of the token
+        const token = req.headers.authorization.split(' ')[1];
+        // Ver si el token es correcto con la palabra secreta //
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as TokenDecoded;
+        // Guardar los datos del token //
+        req.tokenData = {
             id: decoded.id,
             role_id: decoded.role_id,
             email: decoded.email
         }
-        
-        next();
-        
+        next();     
     } catch (error) {
         res.status(500).json(
             {
                 success: false,
-                message: "Error authenticating user",
+                message: "User authentication error",
                 error: error
             }
         )

@@ -5,42 +5,34 @@ import jwt from 'jsonwebtoken';
 
 export const register = async (req: Request, res: Response) => {
     try {
-        //1. Retrive all the information of the request
+        // 1. Recuperar información //
         const email = req.body.email;
         const password_hash = req.body.password_hash;
 
-        // const body = { email, password_hash }
-
-        //2. Validate the obtained information
-
+        // 2. Validar información //
         if (!email || !password_hash) {
             return res.status(400).json(
                 {
                     success: false,
-                    message: "Email and password cannot be empty!"
+                    message: "Email and password not be empty"
                 }
             )
         }
 
-        if (password_hash.length < 8 || password_hash.length > 12) {
+        if (password_hash.length < 7 || password_hash.length > 14) {
             return res.status(400).json(
                 {
                     success: false,
-                    message: "The provided password does not respond to the requirements!"
+                    message: "Password is not correct"
                 }
             )
         }
 
-
-        // TODO email comprobation must be inserted 
-
-
-        //3. Work with the obtained user information - in our case encrypt the password
+        // 3. Encriptar la contraseña //
         const passwordCrypted = bcrypt.hashSync(password_hash, 10)
 
 
-        //4. Save the info in out DataBase
-
+        // 4. Guardar información en la DB //
         const newUser = await User.create(
             {
                 email: email,
@@ -48,12 +40,11 @@ export const register = async (req: Request, res: Response) => {
             }
         ).save();
 
-        //5. Respond to the page
-
+        // 5. Respuesta // 
         res.status(201).json(
             {
                 success: true,
-                message: "User was created successfully! You can now log in to the page!",
+                message: "User was created",
                 data: newUser
             }
         )
@@ -63,7 +54,7 @@ export const register = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Cannot create user",
+                message: "User not created",
                 error: error
             }
         )
@@ -72,20 +63,18 @@ export const register = async (req: Request, res: Response) => {
 
 export const userLogIn = async (req: Request, res: Response) => {
     try {
-        // 1. Get the needed user information
+        // 1. Obtener información //
         const { email, password_hash } = req.body
-
-        //2. Make a validation
+        // 2. Validar información //
         if (!email || !password_hash) {
             return res.status(400).json(
                 {
                     success: false,
-                    message: "Email or password cannot be empty"
+                    message: "Email or password not be empty"
                 }
             )
         }
-
-        //3. Check if the user exists in our DataBase
+        // 3. Comprobar usuario en DB //
         const user = await User.findOne({
             where: { email: email }
         })
@@ -94,24 +83,22 @@ export const userLogIn = async (req: Request, res: Response) => {
             return res.status(400).json(
                 {
                     success: false,
-                    message: "Email or password are not valid!"
+                    message: "Email or password is not correct"
                 }
             )
         }
 
-        //4. If user exists, then we need to check his password
-
+        // 4. Verificar contraseña usuario //
         const validPass = bcrypt.compareSync(password_hash, user.password_hash)
 
         if (!validPass) {
             return res.status(400).json({
                 success: false,
-                message: "Email or password are wrong!"
+                message: "Error email or password"
             })
         }
 
-        //5. Token creation
-
+        // 5. Token //
         const token = jwt.sign(
             {
                 id: user.id,
@@ -128,7 +115,7 @@ export const userLogIn = async (req: Request, res: Response) => {
         res.status(200).json(
             {
                 success: true,
-                message: "Welcome, user!",
+                message: "Hello",
                 token: token
             }
         )
@@ -137,7 +124,7 @@ export const userLogIn = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Cannot login user",
+                message: "Cannot access",
                 error: error
             }
         )

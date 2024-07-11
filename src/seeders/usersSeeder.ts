@@ -22,20 +22,20 @@ export const usersSeeder = async () => {
 
         const user3 = new User();
         user3.id = 3;
-        user3.email = "guillermo@guillermo.com";
+        user3.email = "mandy@mandy.com";
         user3.password_hash = bcrypt.hashSync("123456789", 12);
         user3.role_id = 1
         await user3.save();
 
-        console.log("===========================");
+        console.log("==================================");
         console.log("Users seeder executed successfully");
-        console.log("===========================");
+        console.log("==================================");
         
     } catch (error: any) {
         const message = error instanceof Error ? error.message : String(error);
-        console.error("----------------------");
+        console.error("=========================================");
         console.error('Error in users seeder execution:', message);
-        console.error("----------------------");
+        console.error("=========================================");
 
     } finally {
         await AppDataSource.destroy();

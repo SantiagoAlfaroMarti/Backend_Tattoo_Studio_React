@@ -3,21 +3,22 @@ import { Service } from "../database/models/service";
 
 export const createService = async (req: Request, res: Response) => {
     try {
-        //1. Retrive info from the user
+
+        // 1. Obtener información //
         const service_name = req.body.service_name;
         const description = req.body.description;
 
-        //2. Check the obtained information
+        // 2. Validar información //
         if(!service_name || !description){
             return res.status(400).json(
                 {
                     success: false,
-                    message: "Name and description cannot be empty!"
+                    message: "Name and description not be empty"
                 }
             )
         }
 
-        //3. Save info in our DataBase
+        // 3. Guardar en la DB //
         const newService = await Service.create(
             {   
                 service_name: service_name,
@@ -25,11 +26,11 @@ export const createService = async (req: Request, res: Response) => {
             }
         ).save();
 
-        //4. Give a response to the page
+        // 4. Respuesta //
         res.status(201).json(
             {
                 success: true,
-                message: "Service created successfully!",
+                message: "Service created",
                 data: newService
             }
         )
@@ -38,7 +39,7 @@ export const createService = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Service cannot be created",
+                message: "Service not be created",
                 error: error
             }
         )
@@ -47,14 +48,14 @@ export const createService = async (req: Request, res: Response) => {
 
 export const getAllServices = async (req: Request, res: Response) => {
     try {
-        //1. Get information needed
+        // 1. Obtener información //
         const services = await Service.find()
 
-        //2. Respond to user
+        // 2. Respuesta //
         res.status(200).json(
             {
                 success: true,
-                message: "Services retrived successfully!",
+                message: "Services retrived",
                 data: services
             }
         )
@@ -62,7 +63,7 @@ export const getAllServices = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Services can't be retrieved",
+            message: "Services not be retrieved",
             error: error
         })
     }
@@ -91,13 +92,13 @@ export const updateSerivce = async (req: Request, res: Response) => {
     
             return res.status(200).json({
                 success: true,
-                message: "Service updated successfully",
+                message: "Service updated",
                 data: updatedservice
             })
         } catch (error) {
             return res.status(500).json({
                 success: false,
-                message: "Service can't be updated",
+                message: "Service not be updated",
                 error: error
             })
         }
@@ -125,13 +126,13 @@ export const deleteService = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             success: true,
-            message: "Service deleted successfully",
+            message: "Service deleted",
             data: updatedservice
         })
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Service can't be deleted",
+            message: "Service not be deleted",
             error: error
         })
     }

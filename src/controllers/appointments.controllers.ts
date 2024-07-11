@@ -3,22 +3,22 @@ import { Appointment } from "../database/models/appointment";
 
 export const createAppointment = async (req: Request, res: Response) => {
     try {
-        //1. Get the needed information
+        // 1. Conseguir la informacion //
         const appDate = req.body.appointment_date;
         const userID = req.tokenData.id;
         const serviceID = req.body.service_id;
 
-        //2. Check the obtained information
+        // 2. Comprobar la información //
         if (!appDate || !serviceID) {
             return res.status(400).json(
                 {
                     success: false,
-                    message: "Date and Service cannot be empty!"
+                    message: "Date and Service not be empty"
                 }
             )
         }
 
-        //3. Save info in our DataBase
+        // 3. Guardar la información //
         const newAppointment = await Appointment.create(
             {
                 appointment_date: appDate,
@@ -27,11 +27,11 @@ export const createAppointment = async (req: Request, res: Response) => {
             }
         ).save();
 
-        //4. Give a response to the page
+        // 4. Respuesta //
         res.status(201).json(
             {
                 success: true,
-                message: "Appointment created successfully!",
+                message: "Appointment created correctly",
                 data: newAppointment
             }
         )
@@ -40,7 +40,7 @@ export const createAppointment = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Error creating new appointment!",
+                message: "Error new appointment",
                 error: error
             }
         )
@@ -50,11 +50,11 @@ export const createAppointment = async (req: Request, res: Response) => {
 
 export const updateAppointment = async (req: Request, res: Response) => {
     try {
-        //1. Get the ID of the appointment we want to update
+        // 1. Id de la cita que se quiere actualizar //
         const appointmentID = req.body.id;
         const body = req.body;
 
-        //2. Verify the appID
+        // 2. Comprobar Id //
         const appointment = await Appointment.findOne(
             {
                 where: {
@@ -67,12 +67,12 @@ export const updateAppointment = async (req: Request, res: Response) => {
             return res.status(404).json(
                 {
                     success: false,
-                    message: "Appointment does not exist!"
+                    message: "Appointment undefine"
                 }
             )
         }
 
-        //3. If finded app exist = update and save the info
+        // 3. Actualizar y guardar la información //
 
         const updateApp = await Appointment.update(
             {
@@ -81,11 +81,11 @@ export const updateAppointment = async (req: Request, res: Response) => {
             body
         )
 
-        //4. Response provide
+        // 4. Respuesta //
         res.status(200).json(
             {
                 success: true,
-                message: "Appointment amended successfully!",
+                message: "Modified appointment",
                 data: updateApp
             }
         )
@@ -94,7 +94,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Error changing appointment info!",
+                message: "Error changing appointment details",
                 error: error
             }
         )
@@ -104,11 +104,11 @@ export const updateAppointment = async (req: Request, res: Response) => {
 
 export const findAppointmendById = async (req: Request, res: Response) => {
     try {
-        //1. Find the ID of the appointment
+        // 1. Buscar Id de la cita //
         const appId = req.body.id;
         const userID = req.tokenData.id;
 
-        //2. Search app by ID in our database
+        // 2. Buscar Id en la DB //
         const appointment = await Appointment.findOne(
             {
                 where: {
@@ -123,16 +123,16 @@ export const findAppointmendById = async (req: Request, res: Response) => {
             return res.status(404).json(
                 {
                     success: false,
-                    message: "Appointment not found!"
+                    message: "No appointment found"
                 }
             )
         }
 
-        //3. Provide response 
+        // 3. Respuesta //
         res.json(
             {
                 success: true,
-                message: "Appointment retrived successfully!",
+                message: "Recovered appointment",
                 data: appointment
             }
         )
@@ -141,7 +141,7 @@ export const findAppointmendById = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Error finding appointment",
+                message: "No finding appointment",
                 error: error
             }
         )
@@ -153,7 +153,6 @@ export const showMyAppointments = async (req: Request, res: Response) => {
     try {
         const userId = req.tokenData.id;
 
-        // console.log(userId)
         const appointment = await Appointment.find(
             {
                 select: {
@@ -180,7 +179,7 @@ export const showMyAppointments = async (req: Request, res: Response) => {
         res.status(200).json(
             {
                 success: true,
-                message: "User appointments retrived successfully!",
+                message: "User appointments found",
                 data: appointment
             }
         )
@@ -189,7 +188,7 @@ export const showMyAppointments = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 susscess: false,
-                message: "aaaaa",
+                message: "@@@",
                 error: error
             }
         )
@@ -218,7 +217,7 @@ export const deleteAppointment = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             success: true,
-            message: "Appointment deleted successfully",
+            message: "Appointment deleted",
             data: deletedApp
         })
     } catch (error) {

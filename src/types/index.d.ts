@@ -3,7 +3,6 @@ export interface TokenDecoded {
     role_id: number,
     email: string
 }
-
 declare global {
     namespace Express {
        export interface Request {

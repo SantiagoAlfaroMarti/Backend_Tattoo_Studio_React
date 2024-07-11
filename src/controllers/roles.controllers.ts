@@ -3,14 +3,14 @@ import { Role } from "../database/models/role";
 
 export const getRoles = async (req: Request, res: Response) => {
     try {
-        //1. Get information needed
+        // 1. Obtener información //
         const services = await Role.find()
 
-        //2. Respond to user
+        // 2. Respuesta //
         res.status(200).json(
             {
                 success: true,
-                message: "All roles retrived successfully!",
+                message: "All roles retrived",
                 data: services
             }
         )
@@ -18,17 +18,19 @@ export const getRoles = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Roles can't be retrieved",
+            message: "Roles not be retrieved",
             error: error
         })
     }
 }
 
 export const createRole = async (req: Request, res: Response) => {
-    try {//1. Get needed info
+    try {
+        
+        // 1. Obtener información //
         const name = req.body.name;
 
-        //2. Save it in database
+        // 2. Guardar en DB //
         const newRole = await Role.create(
             {
                 name: name
@@ -38,7 +40,7 @@ export const createRole = async (req: Request, res: Response) => {
         res.status(200).json(
             {
                 success: true,
-                message: "Role was created successfully!",
+                message: "Role was created",
                 data: newRole
             }
         )
@@ -46,7 +48,7 @@ export const createRole = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Cannot create new role",
+                message: "Role not created",
                 error: error
             })
     }
@@ -54,11 +56,11 @@ export const createRole = async (req: Request, res: Response) => {
 
 export const updateRole = async (req: Request, res: Response) => {
     try {
-        //1. Get information needed
+        // 1. Obtener información //
         const roleID = req.params.id
         const body = req.body
 
-        //2. Update the info with the info from the body
+        // 2. Actualizar información //
         const updatedRole = await Role.update(
             {
                 id: parseInt(roleID)
@@ -66,11 +68,11 @@ export const updateRole = async (req: Request, res: Response) => {
             body
         )
 
-        //2. Respond to user
+        // 2. Resuesta //
         res.status(200).json(
             {
                 success: true,
-                message: "Role was updated successfully!",
+                message: "Role was updated",
                 data: updateRole
             }
         )
@@ -79,7 +81,7 @@ export const updateRole = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 succes: false,
-                message: "Cannot update role!",
+                message: "Role not updated",
                 error: error
             }
         )
@@ -88,10 +90,11 @@ export const updateRole = async (req: Request, res: Response) => {
 
 export const deleteRole = async (req: Request, res: Response) => {
     try {
-        //1. Get the wanted role ID
+
+    // 1. Obtener información //
     const roleID = req.params.id
 
-    //2. Find the role
+    // 2. Buscar rol // 
     const role = await Role.findOne(
         {
             where: {
@@ -100,7 +103,7 @@ export const deleteRole = async (req: Request, res: Response) => {
         }
     )
 
-    //3. DElete it from db
+    // 3. Eliminar rol //
 
     const deletedRole = await Role.delete(
         {
@@ -108,12 +111,12 @@ export const deleteRole = async (req: Request, res: Response) => {
         }
     )
 
-    //4. Response
+    // 4. Respuesta //
 
     res.status(200).json(
         {
             success: true,
-            message: "Role was deleted successfully!",
+            message: "Role was deleted",
             data: deleteRole
         }
     )
@@ -122,11 +125,9 @@ export const deleteRole = async (req: Request, res: Response) => {
         res.status(500).json(
             {
                 success: false,
-                message: "Cannot delete role!",
+                message: "Role not delete",
                 error: error
             }
-        )
-        
+        ) 
     }
-
 }

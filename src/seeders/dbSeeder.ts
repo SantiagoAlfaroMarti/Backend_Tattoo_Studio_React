@@ -4,7 +4,6 @@ import { servicesSeeder } from "./servicesSeeder";
 import { usersSeeder } from "./usersSeeder";
 
 (async () => { 
-    console.log("Starting seeders...")
     await rolesSeeder();
     await usersSeeder();
     await servicesSeeder();

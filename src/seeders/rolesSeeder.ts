@@ -21,13 +21,13 @@ export const rolesSeeder = async () => {
         await superAdmin.save();
 
         console.log("===========================");
-        console.log("Roles seeder executed successfully");
+        console.log("Successfully executed seeder roles");
         console.log("===========================");
         
     } catch (error: any) {
         const message = error instanceof Error ? error.message : String(error);
         console.error("----------------------");
-        console.error('Error in roles seeder execution:', message);
+        console.error('Error in the execution of the roles seeders:', message);
         console.error("----------------------");
 
     } finally {

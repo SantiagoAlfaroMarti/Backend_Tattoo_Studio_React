@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config'
+
 import { AppDataSource } from './database/db';
 import { changeUserRole, deleteUserById, getAllUsers, getUserByEmail, getUserProfile, modifyUserProfile } from './controllers/users.controller';
 import { register, userLogIn } from './controllers/auth.controller';
@@ -25,44 +26,59 @@ AppDataSource.initialize()
         console.log(error)
     })
 
+// Autenticación //
 
+// Crear nuevo usuario //
+app.post('/api/auth/register', register)
+// Login usuario //
+app.post('/api/auth/login', userLogIn)
 
-// AUTHENTICATION CRUD
+// Usuarios //
 
-app.post('/api/auth/register', register)       // to create new user  - pass to Thunder > body > email + password
-app.post('/api/auth/login', userLogIn)   //to log in to your account   - pass to Thunder > auth > your token hash
+// Mostrar todos los usuarios de la DB //
+app.get('/api/users', auth, isAdmin, getAllUsers) 
+// Ver el perfil del usuario //   
+app.get('/api/users/profile',  auth, getUserProfile)
+// Modificar el perfil del usuario //     
+app.put('/api/users/profile', auth, modifyUserProfile)
+// Conseguir un usuario a través del email //
+app.get('/api/users/:email', auth, isAdmin, getUserByEmail)
+// Eliminar un usuario //
+app.delete('/api/users/:id', auth, isAdmin, deleteUserById)
+// Cambiar el rol de usuario //
+app.put('/api/users/:id/role', auth, isAdmin, changeUserRole)
 
+// Citas //
 
-// USERS CRUD
+// Crear nueva cita //
+app.post('/api/appointments/create', auth, createAppointment)
+// Actualizar una cita //
+app.put('/api/appointments/change', auth, updateAppointment)
+// Mostrar todas mis citas //
+app.get('/api/appointments/scheduled', auth, showMyAppointments)
+// Eliminar una cita //
+app.delete('/api/appointments/delete', auth, deleteAppointment)
+// Mostrar una cita por Id //
+app.get('/api/appointments/:id', auth, findAppointmendById)              
 
-app.get('/api/users', auth, isAdmin, getAllUsers)       //To show all users in our DB in admin POV         - pass to Thunder > auth > your token hash
-app.get('/api/users/profile',  auth, getUserProfile)             //To see user profile as user POV          - pass to Thunder > auth > your token hash
-app.put('/api/users/profile', auth, modifyUserProfile)             // To modify(update) user profile as user POV    - pass to Thunder > auth > your token hash + body > info to be updated ex. email
-app.get('/api/users/:email', auth, isAdmin, getUserByEmail)         // to get user by mail
-app.delete('/api/users/:id', auth, isAdmin, deleteUserById)        //to eliminate User finded by ID
-app.put('/api/users/:id/role', auth, isAdmin, changeUserRole)      // to change User role finded by ID
+// Servicios //
 
+// Mostrar todo los servicios //
+app.get('/api/services', getAllServices)
+// Crear un nuevo servicio //
+app.post('/api/services', auth, isAdmin, createService)
+// Actualizar un servicio //
+app.put('/api/services/:id', auth, isAdmin, updateSerivce)
+// Eliminar un servicio //
+app.delete('/api/services/:id', auth, isAdmin, deleteService)
 
-//APPOINTMENTS CRUD
+// Roles //
 
-app.post('/api/appointments/create', auth, createAppointment)          //Create new appointment           - pass to Thunder > auth > your token hash
-app.put('/api/appointments/change', auth, updateAppointment)          //Update an appointment           - pass to Thunder > auth > your token hash
-app.get('/api/appointments/scheduled', auth, showMyAppointments)     //Show all my appointments        - pass to Thunder > auth > your token hash
-app.delete('/api/appointments/delete', auth, deleteAppointment)      //to delete selected appoitnment
-app.get('/api/appointments/:id', auth, findAppointmendById)         //Show an appointment by ID                - pass to Thunder > auth > your token hash
-
-
-// SERVICES CRUD
-
-app.get('/api/services', getAllServices)                            // to see all the services
-app.post('/api/services', auth, isAdmin, createService)             //to create a service
-app.put('/api/services/:id', auth, isAdmin, updateSerivce)          // to update a service by its ID
-app.delete('/api/services/:id', auth, isAdmin, deleteService)        // to delete a service by its ID
-
-
-// ROLES CRUD
-
-app.get('/api/roles', auth, isAdmin, getRoles)                     // to see all roles
-app.post('/api/roles/create', auth, isAdmin, createRole)           //to make new role
-app.put('/api/roles/update/:id', auth, isAdmin, updateRole)      //to update role by its ID
-app.delete('/api/roles/delete', auth, isAdmin)                  //to delete a role by its ID 
+// Mostrar todos los roles //
+app.get('/api/roles', auth, isAdmin, getRoles)
+// Crear nuevo rol //
+app.post('/api/roles/create', auth, isAdmin, createRole)
+// Actualizar un rol //
+app.put('/api/roles/update/:id', auth, isAdmin, updateRole)
+// Eliminar un rol //
+app.delete('/api/roles/delete', auth, isAdmin) 

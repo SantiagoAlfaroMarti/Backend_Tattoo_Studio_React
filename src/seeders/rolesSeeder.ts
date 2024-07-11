@@ -1,5 +1,5 @@
-import { AppDataSource } from "../db";
-import { Role } from "../models/role";
+import { AppDataSource } from "../database/db";
+import { Role } from "../database/models/role";
 
 export const rolesSeeder = async () => {
     try {

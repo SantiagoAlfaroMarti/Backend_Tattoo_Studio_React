@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class Appointment1719865410532 implements MigrationInterface {
+export class Appointments1720681772677 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -12,7 +12,7 @@ export class Appointment1719865410532 implements MigrationInterface {
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
-                        generationStrategy: "increment"
+                        generationStrategy:"increment"
                     },
                     {
                         name: "appointment_date",
@@ -20,37 +20,35 @@ export class Appointment1719865410532 implements MigrationInterface {
                         isNullable: false
                     },
                     {
-                        name: "user_id",
+                        name: "userId",
                         type: "int",
                         isNullable: false
                     },
                     {
-                        name: "service_id",
+                        name: "serviceId",
                         type: "int",
                         isNullable: false
+
                     }
                 ],
                 foreignKeys: [
                     {
-                        columnNames: ['user_id'],
-                        referencedColumnNames: ['id'],
+                        columnNames: ['userId'],
                         referencedTableName: 'users',
-                        onDelete: "CASCADE"
+                        referencedColumnNames: ["id"]
                     },
                     {
-                        columnNames: ['service_id'],
-                        referencedColumnNames: ['id'],
+                        columnNames: ['serviceId'],
                         referencedTableName: 'services',
-                        onDelete: "CASCADE"
+                        referencedColumnNames: ["id"]
                     }
                 ]
             }),
             true
         )
+        }
+    
+        public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('roles')
+        }
     }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('appointments')
-    }
-
-}

@@ -1,5 +1,5 @@
-import { AppDataSource } from "../db";
-import { Service } from "../models/Service";
+import { AppDataSource } from "../database/db";
+import { Service } from "../database/models/service";
 
 export const servicesSeeder = async () => {
     try {

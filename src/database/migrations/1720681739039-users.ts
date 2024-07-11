@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class User1719865380892 implements MigrationInterface {
+export class Users1720681739039 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -12,45 +12,44 @@ export class User1719865380892 implements MigrationInterface {
                         type: "int",
                         isPrimary: true,
                         isGenerated: true,
-                        generationStrategy: "increment"
+                        generationStrategy:"increment"
                     },
                     {
                         name: "first_name",
                         type: "varchar",
-                        length: "255",
+                        length: "250",
                         isNullable: true
                     },
                     {
                         name: "last_name",
                         type: "varchar",
-                        length: "255",
+                        length: "250",
                         isNullable: true
                     },
                     {
                         name: "email",
                         type: "varchar",
-                        length: "255",
-                        isUnique: true,
+                        length: "250",
                         isNullable: false
                     },
                     {
                         name: "password_hash",
                         type: "varchar",
-                        length: "255",
+                        length: "250",
                         isNullable: false
                     },
                     {
-                        name: "role_id",
+                        name: "roleId",
                         type: "int",
                         default: 1
                     },
                     {
-                        name: "created_at",
+                        name: "createdAt",
                         type: "datetime",
-                        default: "now()"
+                        default: "now()",
                     },
                     {
-                        name: "updated_at",
+                        name: "updatedAt",
                         type: "datetime",
                         default: "now()",
                         onUpdate: "now()"
@@ -58,18 +57,18 @@ export class User1719865380892 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        columnNames: ["role_id"],
-                        referencedTableName: "roles",
+                        columnNames: ["roleId"],
                         referencedColumnNames: ["id"],
+                        referencedTableName: "roles",
                         onDelete: "CASCADE"
-                    }, 
-                ],
+                    },
+                ]
             }),
             true
-        );
+        )
+        }
+    
+        public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('roles')
+        }
     }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('users')
-    }
-}

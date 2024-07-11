@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import { AppDataSource } from "../db";
-import { User } from "../models/user";
+import { AppDataSource } from "../database/db";
+import { User } from "../database/models/user";
 
 export const usersSeeder = async () => {
     try {

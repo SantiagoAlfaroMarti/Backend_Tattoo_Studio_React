@@ -39,17 +39,17 @@ export class Users1720681739039 implements MigrationInterface {
                         isNullable: false
                     },
                     {
-                        name: "roleId",
+                        name: "role_id",
                         type: "int",
                         default: 1
                     },
                     {
-                        name: "createdAt",
+                        name: "created_at",
                         type: "datetime",
                         default: "now()",
                     },
                     {
-                        name: "updatedAt",
+                        name: "updated_at",
                         type: "datetime",
                         default: "now()",
                         onUpdate: "now()"
@@ -57,7 +57,7 @@ export class Users1720681739039 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        columnNames: ["roleId"],
+                        columnNames: ["role_id"],
                         referencedColumnNames: ["id"],
                         referencedTableName: "roles",
                         onDelete: "CASCADE"

@@ -20,12 +20,12 @@ export class Appointments1720681772677 implements MigrationInterface {
                         isNullable: false
                     },
                     {
-                        name: "userId",
+                        name: "user_id",
                         type: "int",
                         isNullable: false
                     },
                     {
-                        name: "serviceId",
+                        name: "service_id",
                         type: "int",
                         isNullable: false
 
@@ -33,12 +33,12 @@ export class Appointments1720681772677 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        columnNames: ['userId'],
+                        columnNames: ['user_id'],
                         referencedTableName: 'users',
                         referencedColumnNames: ["id"]
                     },
                     {
-                        columnNames: ['serviceId'],
+                        columnNames: ['service_id'],
                         referencedTableName: 'services',
                         referencedColumnNames: ["id"]
                     }

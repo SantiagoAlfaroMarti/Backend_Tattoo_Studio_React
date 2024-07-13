@@ -11,12 +11,12 @@ Welcome to my first backend project!
     <li><a href="#about-the-project">About the project</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#local-installation">Installation</a></li>
-    <li><a href="#initial approach">Initial approach</a></li>
+    <li><a href="#initial approach">Initial Approach</a></li>
     <li><a href="#database Diagram">Database Diagram</a></li>
-    <li><a href="#db-relations">DB relations</a></li>
+    <li><a href="#db-relations">Database Relations</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
-    <li><a href="#problems-solutions">Problems solutions</a></li>
-    <li><a href="#future-functionalities">Future functionalities</a></li>
+    <li><a href="#problems-solutions">Problems Solutions</a></li>
+    <li><a href="#future-functionalities">Future Functionalities</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
     <li><a href="#development">Development</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -26,22 +26,36 @@ Welcome to my first backend project!
 ## About the project :bricks:
 In this first backend project, the product department asked us to develop the backend for the appointment management system for a tattoo studio.
 <br>
+<br>
 Users must register in the application, log in and access their personal area.
 area. Within their area, they will be able to see a list of scheduled appointments for tattoo and piercing tattoo and piercing services,
 as well as create new appointments for various services offered by the services offered by the studio, such as:
 <br>
+<br>
+
 <b>1. Personalised tattoos:</b>
 Description: Customers will have the freedom to select unique motifs and designs, fully customising their tattoo experience according to their preferences and tastes.
+<br>
+
 <b>2. Catalogue tattoos:</b>
 Description: We offer tattooing based on predefined designs from our catalogue. Customers can choose from a variety of stylish and proven options.
+<br>
+
 <b>3. Restoration and rejuvenation work:</b>
 Description: We specialise in the restoration and rejuvenation of existing tattoos. Our experts work to enhance and renew old tattoos, giving them back their vitality.
+<br>
+
 <b>4. Placement of piercings and dilators:</b>
 Description: We offer professional services for the placement of piercings and dilators. Our team ensures safe procedures and varied styles to meet the individual preferences of our clients.
+<br>
+
 <b>5. Sale of piercings and other items:</b>
 Description: In addition to our application services, we offer a selection of piercings and other body art related items. Customers can purchase quality products to complement their unique style.
+<br>
 
 In addition, there will be a user section where they will be able to access their personal data, viewable only by the user (profile).
+<br>
+
 <img src="./img/gif tatuador.gif">
 
 ## Stack :rocket:
@@ -75,7 +89,7 @@ In addition, there will be a user section where they will be able to access thei
 </a>
  </div>
 
- ## Local installation :computer:
+ ## Installation :computer:
 
 1. If you don't have MySQL installed on you computer, you can install Docker and execute the above command on your Powershell to create a MySQL container
 ` $ docker run --name nombre-contenedor -p 3311:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql `
@@ -90,13 +104,13 @@ In addition, there will be a user section where they will be able to access thei
 6. Mock DB with seeders
 ` $ npm run seeds `
 
-## Initial approach :spiral_notepad:
+## Initial Approach :spiral_notepad:
 <img src="./img/planteamiento_inicial.png">
 
 ## Database Diagram :chart_with_upwards_trend:
 <img src="./img/diagrama.png">
 
-## DB relations :clipboard:
+## Database Relations :clipboard:
     
     - "Roles" to "Users": One-to-many relationship
     where:
@@ -424,11 +438,11 @@ In addition, there will be a user section where they will be able to access thei
 
   </details>
 
-## Problems solutions :boxing_glove:
+## Problems Solutions :boxing_glove:
 The greatest difficulty I have encountered has been in establishing the relationships between users, artists, appointments, roles and services. Depending on each of them, they have different unions, depending on the type of union they are linked to.
 But thinking first of all about how the relationships will be, I have been able to create all the links between each one of them.
 
-## Future functionalities :crystal_ball:
+## Future Functionalities :crystal_ball:
 Tattoo and piercing artists will be able to choose and update their appointments.
 <br>
 Include reviews of tattoo artists and piercing artists, based on customer experience.
@@ -438,7 +452,7 @@ Include the frontend part so that customers can navigate with the API, and can s
 Differentiate tattoo artists from piercing artists.
 <br>
 
-## Acknowledgements :1st_place-medal:
+## Acknowledgements :trophy:
 I would like to thank the teachers of GeeksHub Academy for their dedication and commitment to develop this first backend project.
 Repeating countless times the concepts to be able to assimilate them, explaining in different ways for its understanding and looking for solutions to all the errors that appeared in the terminal.
 

@@ -8,7 +8,7 @@ export const register = async (req: Request, res: Response) => {
         // 1. Recuperar información //
         const email = req.body.email;
         const password_hash = req.body.password_hash;
-
+console.log(1)
         // 2. Validar información //
         if (!email || !password_hash) {
             return res.status(400).json(
@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response) => {
                 }
             )
         }
-
+console.log(2)
         if (password_hash.length < 7 || password_hash.length > 14) {
             return res.status(400).json(
                 {

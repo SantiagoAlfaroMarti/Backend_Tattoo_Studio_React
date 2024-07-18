@@ -2,7 +2,7 @@ import express from 'express';
 import 'dotenv/config'
 
 import { AppDataSource } from './database/db';
-import { getAllUsers, getUserProfile, modifyUserProfile } from './controllers/users.controller';
+import { getAllUsers, getProfileByUserId, getUserProfile, modifyUserProfile } from './controllers/users.controller';
 import { register, userLogIn } from './controllers/auth.controller';
 import { createService, deleteService, getAllServices, updateSerivce } from './controllers/services.controller';
 import { auth } from './middlewares/auths';
@@ -41,6 +41,7 @@ app.get('/api/users', auth, isAdmin, getAllUsers)
 app.get('/api/users/profile',  auth, getUserProfile)
 // Modificar el perfil del usuario //     
 app.put('/api/users/profile', auth, modifyUserProfile)
+app.get('/api/users/profile/:id', auth, isAdmin, getProfileByUserId)
 
 
 // Citas //

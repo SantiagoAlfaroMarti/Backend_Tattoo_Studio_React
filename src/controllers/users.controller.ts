@@ -33,7 +33,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
         )
     }
 }
-
 export const getUserProfile = async (req: Request, res: Response) => {
     try {
         // 1. Obtener información //
@@ -71,7 +70,6 @@ export const getUserProfile = async (req: Request, res: Response) => {
         )
     }
 }
-
 export const modifyUserProfile = async (req: Request, res: Response) => {
     try {
         // 1. Obtener información //
@@ -170,3 +168,26 @@ export const getProfileByUserId = async (req: Request, res: Response) => {
         })
     }
 }
+export const deleteUserById = async (req: Request, res: Response) => {
+    try {
+      // 1. Recuperar el id del usuario a traves de req.params
+      const userId = +req.params.id;
+  
+      // 2. Eliminar el usuario
+      const user = await User.delete({
+        id: userId,
+      });
+  
+      res.status(204).json({
+        success: true,
+        message: "User successfully deleted",
+        data: user,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error deleting user",
+        error: error,
+      });
+    }
+  };

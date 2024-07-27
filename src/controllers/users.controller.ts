@@ -8,6 +8,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
         const users = await User.find(
             {
                 select: {
+                    id: true,
+                    first_name: true,
                     email: true,
                     created_at: true
                 }

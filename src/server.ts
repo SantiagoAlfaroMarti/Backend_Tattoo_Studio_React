@@ -1,5 +1,6 @@
+import 'dotenv/config';
+import cors from 'cors';
 import express from 'express';
-import 'dotenv/config'
 
 import { AppDataSource } from './database/db';
 import { deleteUserById, getAllUsers, getProfileByUserId, getUserProfile, modifyUserProfile } from './controllers/users.controller';
@@ -11,7 +12,12 @@ import { createAppointment, deleteAppointment, findAppointmendById, showMyAppoin
 import { createRole, getRoles, updateRole } from './controllers/roles.controllers';
 
 const app = express();
+
+//CORS
+app.use(cors())
+
 app.use(express.json())
+
 
 const PORT = process.env.port || 4000;
 
@@ -42,7 +48,7 @@ app.get('/api/users/profile',  auth, getUserProfile)
 // Modificar el perfil del usuario //     
 app.put('/api/users/profile', auth, modifyUserProfile)
 app.get('/api/users/profile/:id', auth, isAdmin, getProfileByUserId)
-app.delete('/:id', auth, isAdmin, deleteUserById)
+app.delete('/users/:id', auth, isAdmin, deleteUserById)
 
 
 // Citas //

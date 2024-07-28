@@ -8,7 +8,7 @@ import { register, userLogIn } from './controllers/auth.controller';
 import { createService, deleteService, getAllServices, updateSerivce } from './controllers/services.controller';
 import { auth } from './middlewares/auths';
 import { isAdmin } from './middlewares/isAdmin';
-import { createAppointment, deleteAppointment, findAppointmendById, showMyAppointments, updateAppointment } from './controllers/appointments.controllers';
+import { createAppointment, deleteAppointmentById, findAppointmendById, showMyAppointments, updateAppointment } from './controllers/appointments.controllers';
 import { createRole, getRoles, updateRole } from './controllers/roles.controllers';
 
 const app = express();
@@ -48,7 +48,7 @@ app.get('/api/users/profile',  auth, getUserProfile)
 // Modificar el perfil del usuario //     
 app.put('/api/users/profile', auth, modifyUserProfile)
 app.get('/api/users/profile/:id', auth, isAdmin, getProfileByUserId)
-app.delete('/users/:id', auth, isAdmin, deleteUserById)
+app.delete('/api/users/:id', auth, isAdmin, deleteUserById)
 
 
 // Citas //
@@ -60,7 +60,7 @@ app.put('/api/appointments/change', auth, updateAppointment)
 // Mostrar todas mis citas //
 app.get('/api/appointments/scheduled', auth, showMyAppointments)
 // Eliminar una cita //
-app.delete('/api/appointments/delete', auth, deleteAppointment)
+app.delete('/api/appointments/delete/:id', auth, deleteAppointmentById)
 // Mostrar una cita por Id //
 app.get('/api/appointments/:id', auth, findAppointmendById)              
 

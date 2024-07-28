@@ -45,6 +45,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
         const user = await User.findOne(
             {
                 select: {
+                    first_name: true,
                     email: true,
                     created_at: true,
                 },
